@@ -14,16 +14,17 @@ import logic.SnakeStatus;
 public class Window extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 8698427445604449743L;
+	
+	private static final int BOARDHEIGHT = 50, BOARDWIDTH =80, SQUARESIZE = 15;
 	private Canvas canvas = new Canvas();
-	private SnakeStatus game = new SnakeStatus();
+	private SnakeStatus game = new SnakeStatus(BOARDHEIGHT, BOARDWIDTH);
 	private Timer timerGame = new Timer(100, e -> canvas.repaint());
 
 	public Window(String string) {
 		
 		super(string);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 1000);
-		canvas.setBounds(0, 0, 1000, 1000);
+		setSize(BOARDWIDTH * SQUARESIZE, BOARDHEIGHT * SQUARESIZE);
 		this.setBackground(Color.BLUE);
 		add(canvas);
 		canvas.addKeyListener(this);
@@ -41,16 +42,21 @@ public class Window extends JFrame implements KeyListener{
 		
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			this.setBackground(Color.BLACK);
+			this.setBackground(Color.DARK_GRAY);
+			
+			int relativeX = this.getWidth() / 2 - BOARDWIDTH * SQUARESIZE / 2, relativeY = this.getHeight() / 2 - BOARDHEIGHT * SQUARESIZE / 2;
+			
+			g.setColor(Color.BLACK);
+			g.fillRect(relativeX, relativeY, BOARDWIDTH * SQUARESIZE, BOARDHEIGHT * SQUARESIZE);
 			
 			g.setColor(Color.GREEN);
-			game.updateSnake().forEach(p -> g.fillOval(p.x * 20, p.y * 20, 19, 19));
+			game.updateSnake().forEach(p -> g.fillOval(p.x * SQUARESIZE + relativeX, p.y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE- 1));
 			
 			g.setColor(Color.BLUE);
-			g.fillRect(game.getTarget().x * 20, game.getTarget().y * 20, 19, 19);
+			g.fillRect(game.getTarget().x * SQUARESIZE + relativeX, game.getTarget().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
 			
 			g.setColor(Color.RED);
-			g.fillOval(game.getHead().x * 20, game.getHead().y * 20, 19, 19);
+			g.fillOval(game.getHead().x * SQUARESIZE + relativeX, game.getHead().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
 						
 		}
 		

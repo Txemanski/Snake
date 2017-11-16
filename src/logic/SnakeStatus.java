@@ -7,38 +7,34 @@ import java.util.Random;
 public class SnakeStatus {
 	
 	public static final Point UP = new Point(0,-1), DOWN = new Point(0, 1), RIGHT = new Point(1, 0), LEFT = new Point(-1, 0);
+	private final int HEIGHT, WIDTH;
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	
-	public SnakeStatus() {
-	
+	public SnakeStatus(int height, int width) {
 		
+		this.HEIGHT = height;
+		this.WIDTH = width;
 		generateTarget();
 		generateDirectionandHead();
 		
 	}
 	
-	private void generateTarget() {
-		
-		target = new Point(new Random().nextInt(48), new Random().nextInt(48));
-		
-	}
+	private void generateTarget() {target = new Point(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT));}
 	
 	private void generateDirectionandHead() {
-		int x = new Random().nextInt(40) + 5;
-		int y = new Random().nextInt(40) + 5;
+		int x = new Random().nextInt(WIDTH - WIDTH / 5) + WIDTH / 10;
+		int y = new Random().nextInt(HEIGHT - HEIGHT / 5) + HEIGHT / 10;
 		
-		if (y < 10) direction = DOWN;
-		else if (y > 40) direction = UP;
-		else if (x < 25) direction = LEFT;
+		if (y < HEIGHT / 4) direction = DOWN;
+		else if (y > HEIGHT * 3 / 4) direction = UP;
+		else if (x > WIDTH / 2) direction = LEFT;
 		else direction = RIGHT;
 				
 		head = new Point(x, y);
 	}
 	
-	public Point getTarget() {
-		return target;
-	}
+	public Point getTarget() {return target;}
 	
 	public LinkedList<Point> updateSnake(){
 		
@@ -50,16 +46,14 @@ public class SnakeStatus {
 			Snake.removeLast();
 		}
 		
-		head.x = (head.x + direction.x % 49) > -1 ? (head.x + direction.x % 49) : 49;
-		head.y = (head.y + direction.y % 49) > -1 ? (head.y + direction.y % 49) : 48;
+		head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
+		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT - 1) : (HEIGHT - 1);
 		
 
 		return Snake;
 	}
 	
-	public Point getHead() {
-		return head;
-	}
+	public Point getHead() {return head;}
 	
 	public void changeDirection(Point p) {
 		
