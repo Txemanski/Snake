@@ -8,6 +8,7 @@ public class SnakeStatus {
 	
 	public static final Point UP = new Point(0,-1), DOWN = new Point(0, 1), RIGHT = new Point(1, 0), LEFT = new Point(-1, 0);
 	private final int HEIGHT, WIDTH;
+	
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	private boolean gameOver = false, canChangeDirection = true;
