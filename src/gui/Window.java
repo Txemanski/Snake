@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,16 +16,16 @@ public class Window extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 8698427445604449743L;
 	
-	private static final int BOARDHEIGHT = 50, BOARDWIDTH =80, SQUARESIZE = 15;
+	private static final int BOARDHEIGHT = 50, BOARDWIDTH = 80, SQUARESIZE = 15, FONTSIZE = 40;
 	private Canvas canvas = new Canvas();
 	private SnakeStatus game = new SnakeStatus(BOARDHEIGHT, BOARDWIDTH);
-	private Timer timerGame = new Timer(100, e -> canvas.repaint());
+	private Timer timerGame = new Timer(40, e -> canvas.repaint());
 
 	public Window(String string) {
 		
 		super(string);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(BOARDWIDTH * SQUARESIZE, BOARDHEIGHT * SQUARESIZE);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setBackground(Color.BLUE);
 		add(canvas);
 		canvas.addKeyListener(this);
@@ -44,20 +45,44 @@ public class Window extends JFrame implements KeyListener{
 			super.paintComponent(g);
 			this.setBackground(Color.DARK_GRAY);
 			
-			int relativeX = this.getWidth() / 2 - BOARDWIDTH * SQUARESIZE / 2, relativeY = this.getHeight() / 2 - BOARDHEIGHT * SQUARESIZE / 2;
+			int relativeX = this.getWidth() / 2 - BOARDWIDTH * SQUARESIZE / 2, 
+					relativeY = this.getHeight() / 2 - BOARDHEIGHT * SQUARESIZE / 2;
 			
 			g.setColor(Color.BLACK);
 			g.fillRect(relativeX, relativeY, BOARDWIDTH * SQUARESIZE, BOARDHEIGHT * SQUARESIZE);
 			
-			g.setColor(Color.GREEN);
-			game.updateSnake().forEach(p -> g.fillOval(p.x * SQUARESIZE + relativeX, p.y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE- 1));
+			if (game.isGameOver()){
+				
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				g.setColor(Color.YELLOW);
+				g.setFont(new Font("Comic Sans", Font.BOLD, FONTSIZE));
+				g.drawString("GAME OVER", this.getWidth() / 2 - FONTSIZE * 3,
+						this.getHeight() / 2);
+				
+			} else {
+				
+				g.setColor(Color.GREEN);
+				game.updateSnake().forEach(p -> g.fillOval(p.x * SQUARESIZE + relativeX, p.y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE- 1));
+				
+				g.setColor(Color.BLUE);
+				g.fillRect(game.getTarget().x * SQUARESIZE + relativeX, game.getTarget().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
+				
+				g.setColor(Color.RED);
+				g.fillOval(game.getHead().x * SQUARESIZE + relativeX, game.getHead().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
+				
+			}
 			
-			g.setColor(Color.BLUE);
-			g.fillRect(game.getTarget().x * SQUARESIZE + relativeX, game.getTarget().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
+			g.setColor(Color.YELLOW);
+			g.setFont(new Font("Comic Sans", Font.BOLD, 20));
+			g.drawString("Score: " + game.getPoints(), 20,
+					20);
 			
-			g.setColor(Color.RED);
-			g.fillOval(game.getHead().x * SQUARESIZE + relativeX, game.getHead().y * SQUARESIZE + relativeY, SQUARESIZE - 1, SQUARESIZE - 1);
-						
+									
 		}
 		
 		

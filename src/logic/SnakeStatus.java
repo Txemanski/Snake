@@ -10,6 +10,8 @@ public class SnakeStatus {
 	private final int HEIGHT, WIDTH;
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
+	private boolean gameOver = false;
+	private int points = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -38,16 +40,21 @@ public class SnakeStatus {
 	
 	public LinkedList<Point> updateSnake(){
 		
+		gameOver = Snake.contains(head);
+		
 		Snake.addFirst(new Point(head.x, head.y));
+		
 		if (head.equals(target)) {
 			generateTarget();
+			points++;
 		}
 		else {
 			Snake.removeLast();
+			
 		}
 		
 		head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
-		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT - 1) : (HEIGHT - 1);
+		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
 		
 
 		return Snake;
@@ -60,5 +67,9 @@ public class SnakeStatus {
 		if (Math.abs(p.x + direction.x) == 1 || Math.abs(p.y + direction.y) == 1) 
 			direction = p;
 	}
+	
+	public boolean isGameOver() {return gameOver;}
+	
+	public String getPoints() {return Integer.toString(points);	}
 
 }
