@@ -16,10 +16,10 @@ public class Window extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 8698427445604449743L;
 	
-	private static final int BOARDHEIGHT = 50, BOARDWIDTH = 80, SQUARESIZE = 15, FONTSIZE = 40;
+	private static final int BOARDHEIGHT = 50, BOARDWIDTH = 80, SQUARESIZE = 15, FONTSIZE = 40, INITIALSPEED = 50;
 	private Canvas canvas = new Canvas();
 	private SnakeStatus game = new SnakeStatus(BOARDHEIGHT, BOARDWIDTH);
-	private Timer timerGame = new Timer(40, e -> canvas.repaint());
+	private Timer timerGame = new Timer(INITIALSPEED, e -> canvas.repaint());
 
 	public Window(String string) {
 		
@@ -61,7 +61,7 @@ public class Window extends JFrame implements KeyListener{
 				}
 				g.setColor(Color.YELLOW);
 				g.setFont(new Font("Comic Sans", Font.BOLD, FONTSIZE));
-				g.drawString("GAME OVER", this.getWidth() / 2 - FONTSIZE * 3,
+				g.drawString("GAME OVER\n Score: " + game.getScore(), this.getWidth() / 2 - FONTSIZE * 5,
 						this.getHeight() / 2);
 				
 			} else {
@@ -78,8 +78,8 @@ public class Window extends JFrame implements KeyListener{
 			}
 			
 			g.setColor(Color.YELLOW);
-			g.setFont(new Font("Comic Sans", Font.BOLD, 20));
-			g.drawString("Score: " + game.getPoints(), 20,
+			g.setFont(new Font("Comic Sans", Font.BOLD, FONTSIZE / 2));
+			g.drawString("Score: " + game.getScore(), 20,
 					20);
 			
 									

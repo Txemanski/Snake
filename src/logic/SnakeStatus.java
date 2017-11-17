@@ -10,8 +10,8 @@ public class SnakeStatus {
 	private final int HEIGHT, WIDTH;
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
-	private boolean gameOver = false;
-	private int points = 0;
+	private boolean gameOver = false, canChangeDirection = true;
+	private int score = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -22,7 +22,11 @@ public class SnakeStatus {
 		
 	}
 	
-	private void generateTarget() {target = new Point(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT));}
+	private void generateTarget() {
+		do {
+			target = new Point(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT));
+		} while (Snake.contains(target));
+	}
 	
 	private void generateDirectionandHead() {
 		int x = new Random().nextInt(WIDTH - WIDTH / 5) + WIDTH / 10;
@@ -46,7 +50,7 @@ public class SnakeStatus {
 		
 		if (head.equals(target)) {
 			generateTarget();
-			points++;
+			score++;
 		}
 		else {
 			Snake.removeLast();
@@ -56,7 +60,7 @@ public class SnakeStatus {
 		head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
 		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
 		
-
+		canChangeDirection = true;
 		return Snake;
 	}
 	
@@ -64,12 +68,16 @@ public class SnakeStatus {
 	
 	public void changeDirection(Point p) {
 		
-		if (Math.abs(p.x + direction.x) == 1 || Math.abs(p.y + direction.y) == 1) 
+		boolean condition = (Math.abs(p.x + direction.x) == 1 || Math.abs(p.y + direction.y) == 1) && canChangeDirection;
+		
+		if (condition) {
 			direction = p;
+			canChangeDirection = false;
+		}
 	}
 	
 	public boolean isGameOver() {return gameOver;}
 	
-	public String getPoints() {return Integer.toString(points);	}
+	public String getScore() {return Integer.toString(score);	}
 
 }
