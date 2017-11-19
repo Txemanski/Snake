@@ -56,9 +56,8 @@ public class End implements GameState {
 		}
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Comic Sans", Font.BOLD,  Window.FONT_SIZE));
-		g.drawString("GAME OVER\n Score: ", horizontal / 2 - Window.FONT_SIZE * 5,
-				vertical / 2);
-		
+		g.drawString("GAME OVER\n Score: ", horizontal + Window.BOARD_WIDTH * Window.SQUARE_SIZE/ 2 - Window.FONT_SIZE * 5,
+				vertical + Window.BOARD_HEIGHT * Window.SQUARE_SIZE / 2);
 	}
 
 }

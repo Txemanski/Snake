@@ -51,23 +51,20 @@ public class Play implements GameState {
 		
 		if (game.isGameOver()) gc.setState(gc.BSTATES.get("END"));
 		
-		int relativeX = horizontal / 2 - Window.BOARD_WIDTH * Window.SQUARE_SIZE / 2, 
-				relativeY = vertical / 2 - Window.BOARD_HEIGHT * Window.SQUARE_SIZE / 2;
-		
 		g.setColor(Color.GREEN);
-		game.updateSnake().forEach(p -> g.fillOval(p.x * Window.SQUARE_SIZE + relativeX, p.y * Window.SQUARE_SIZE + relativeY, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE- 1));
+		game.updateSnake().forEach(p -> g.fillOval(p.x * Window.SQUARE_SIZE + horizontal, p.y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE- 1));
 		
 		g.setColor(Color.BLUE);
-		g.fillRect(game.getTarget().x * Window.SQUARE_SIZE + relativeX, game.getTarget().y * Window.SQUARE_SIZE + relativeY, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE - 1);
+		g.fillRect(game.getTarget().x * Window.SQUARE_SIZE + horizontal, game.getTarget().y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE - 1);
 		
 		g.setColor(Color.RED);
-		g.fillOval(game.getHead().x * Window.SQUARE_SIZE + relativeX, game.getHead().y * Window.SQUARE_SIZE + relativeY, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE - 1);
+		g.fillOval(game.getHead().x * Window.SQUARE_SIZE + horizontal, game.getHead().y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE - 1);
 		
 	
 	g.setColor(Color.YELLOW);
 	g.setFont(new Font("Comic Sans", Font.BOLD, Window.FONT_SIZE / 2));
-	g.drawString("Score: " + game.getScore(), 20,
-			20);
+	g.drawString("Score: " + game.getScore(), horizontal,
+			vertical - Window.FONT_SIZE);
 		
 	}
 

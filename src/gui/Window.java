@@ -15,7 +15,7 @@ public class Window extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 8698427445604449743L;
 	public static final int BOARD_HEIGHT = 30, BOARD_WIDTH = 50;
-	public static final int SQUARE_SIZE = 25, FONT_SIZE = 40, INITIAL_SPEED = 50;
+	public static final int SQUARE_SIZE = 25, FONT_SIZE = 40, INITIAL_SPEED = 200;
 	
 	private GameContext game = new GameContext();
 	private Canvas canvas = new Canvas();
@@ -86,7 +86,7 @@ public class Window extends JFrame implements KeyListener{
 			g.setColor(Color.BLACK);
 			g.fillRect(relativeX, relativeY, BOARD_WIDTH * SQUARE_SIZE, BOARD_HEIGHT * SQUARE_SIZE);
 			
-			game.drawState(g, this.getWidth(), this.getHeight());
+			game.drawState(g, relativeX, relativeY);
 			
 		}
 		
