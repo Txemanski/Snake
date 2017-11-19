@@ -12,7 +12,7 @@ public class SnakeStatus {
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	private boolean gameOver = false, canChangeDirection = true;
-	private int score = 0;
+	private int score = 0, growCounter = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -47,11 +47,19 @@ public class SnakeStatus {
 		
 		gameOver = Snake.contains(head);
 		
+		LinkedList<Point> tempList = new LinkedList<Point>();
+		
+		Snake.forEach(p -> tempList.add(p));
+		
 		Snake.addFirst(new Point(head.x, head.y));
 		
 		if (head.equals(target)) {
 			generateTarget();
-			score++;
+			growCounter = Math.min(Snake.size(), 16);
+			score+= growCounter;
+		}
+		else if (growCounter > 1){
+			growCounter--;
 		}
 		else {
 			Snake.removeLast();
