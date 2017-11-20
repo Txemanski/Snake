@@ -7,6 +7,7 @@ import java.util.Random;
 public class SnakeStatus {
 	
 	public static final Point UP = new Point(0,-1), DOWN = new Point(0, 1), RIGHT = new Point(1, 0), LEFT = new Point(-1, 0);
+	private static final int MAX_GROWTH = 16;
 	private final int HEIGHT, WIDTH;
 	
 	private LinkedList<Point> Snake = new LinkedList<Point>();
@@ -55,7 +56,7 @@ public class SnakeStatus {
 		
 		if (head.equals(target)) {
 			generateTarget();
-			growCounter = Math.min(Snake.size(), 16);
+			growCounter = Math.min(Snake.size(), MAX_GROWTH);
 			score+= growCounter;
 		}
 		else if (growCounter > 1){
@@ -88,5 +89,11 @@ public class SnakeStatus {
 	public boolean isGameOver() {return gameOver;}
 	
 	public String getScore() {return Integer.toString(score);	}
+	
+	public void reset() {
+		generateTarget();
+		generateDirectionandHead();
+		Snake.clear();
+	}
 
 }

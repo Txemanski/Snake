@@ -8,7 +8,7 @@ import gui.Window;
 
 public class End implements GameState {
 	
-	GameContext gc;
+	private final GameContext gc;
 
 	public End(GameContext c) {
 		
@@ -41,7 +41,8 @@ public class End implements GameState {
 
 	@Override
 	public void spacePressed() {
-		gc.setState(gc.MOPTIONS.get("PLAY") );
+		gc.game.reset();
+		gc.setState(gc.BSTATES.get("MENU") );
 
 	}
 	@Override
@@ -56,7 +57,7 @@ public class End implements GameState {
 		}
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Comic Sans", Font.BOLD,  Window.FONT_SIZE));
-		g.drawString("GAME OVER\n Score: ", horizontal + Window.BOARD_WIDTH * Window.SQUARE_SIZE/ 2 - Window.FONT_SIZE * 5,
+		g.drawString("GAME OVER\n Score: " + gc.game.getScore(), horizontal + Window.BOARD_WIDTH * Window.SQUARE_SIZE/ 2 - Window.FONT_SIZE * 5,
 				vertical + Window.BOARD_HEIGHT * Window.SQUARE_SIZE / 2);
 	}
 
