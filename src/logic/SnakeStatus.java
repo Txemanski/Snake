@@ -94,6 +94,7 @@ public class SnakeStatus {
 		generateTarget();
 		generateDirectionandHead();
 		Snake.clear();
+		score = 0;
 	}
 
 }
