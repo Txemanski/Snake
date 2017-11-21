@@ -10,4 +10,34 @@
 			<y>0</y>
 		</end>
 	</wall>
+	<wall>
+		<start>
+			<x>1</x>
+			<y>0</y>
+		</start>
+		<end>
+			<x>1</x>
+			<y>0</y>
+		</end>
+	</wall>
+	<wall>
+		<start>
+			<x>0</x>
+			<y>0</y>
+		</start>
+		<end>
+			<x>0</x>
+			<y>1</y>
+		</end>
+	</wall>
+	<wall>
+		<start>
+			<x>1</x>
+			<y>0</y>
+		</start>
+		<end>
+			<x>1</x>
+			<y>1</y>
+		</end>
+	</wall>
 </level>
