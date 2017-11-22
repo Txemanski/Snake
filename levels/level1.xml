@@ -40,4 +40,14 @@
 			<y>0</y>
 		</end>
 	</wall>
+	<wall>
+		<start>
+			<x>1/2</x>
+			<y>0</y>
+		</start>
+		<end>
+			<x>1/2</x>
+			<y>1/3</y>
+		</end>
+	</wall>
 </level>

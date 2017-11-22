@@ -18,26 +18,12 @@ public class LevelPainter {
 		
 		parser.getWalls(relativeLevel).forEach(wall -> {
 			
-			int xStart = wall.getStart().x * height / 100, xEnd = wall.getEnd().x * height / 100;
-			int yStart = wall.getStart().y * width / 100, yEnd = wall.getEnd().y * width / 100;
-			int xMultiplier = (xStart - xEnd) < 0 ? -1 : 1;
-			int yMultiplier = (yStart - yEnd) < 0 ? -1 : 1;
+			int xStart = wall.getStart().x * width / 100, xEnd = wall.getEnd().x * width / 100;
+			int yStart = wall.getStart().y * height / 100, yEnd = wall.getEnd().y * height / 100;
 			
-			if (xStart == yStart || xEnd == yEnd) {
-				
-				while (xStart != xEnd) {
-					while(yStart != yEnd) {
-						result.add(new Point(xStart, yStart));
-						yStart += yMultiplier; 						
-					}
-					xStart += xMultiplier;
-				}
-			}			
-			
+			new Bresenham(xStart, yStart, xEnd, yEnd).getLine().forEach(p -> result.add(p));
 		});	
-		
-		result.forEach(p -> System.out.println(p));
-		
+		result.forEach(p -> System.out.println(p.x + " _ " + p.y));
 		return result;
 	}
 
