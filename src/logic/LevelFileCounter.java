@@ -2,7 +2,7 @@ package logic;
 
 import java.io.File;
 
-class LevelFileCounter {
+final class LevelFileCounter {
 	
 	private int numberofLevels = 0;
 	

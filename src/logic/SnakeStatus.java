@@ -13,7 +13,7 @@ public class SnakeStatus {
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	private boolean gameOver = false, canChangeDirection = true;
-	private int score = 0, growCounter = 0;
+	private int score = 0, growCounter = 0, level = 1;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -95,6 +95,13 @@ public class SnakeStatus {
 		generateDirectionandHead();
 		Snake.clear();
 		score = 0;
+	}
+	
+	public LinkedList<Point> getWalls() {
+		
+		LevelPainter walls = new LevelPainter();
+		return walls.getWalls(HEIGHT, WIDTH, level);
+		
 	}
 
 }

@@ -95,7 +95,26 @@ public class LevelParser {
 		else throw new ParseNumbersException("sNumber is not a valid number");
 	}
 
-	public LinkedList<WallDefinition> getWalls() {
+	public LinkedList<WallDefinition> getWalls(int level) {
+		try {
+			parse(new File("levels/level" + level + ".xml"));
+		} catch (DOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseNumbersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return walls;
 	}
 }
