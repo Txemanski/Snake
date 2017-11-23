@@ -51,10 +51,7 @@ public class Play implements GameState {
 		if (gc.game.isGameOver()) gc.setState(gc.BSTATES.get("END"));
 		
 		g.setColor(new Color(0xDA8A5F));
-		gc.game.getWalls().forEach(p -> {
-			System.out.println(p.x + " - " + p.y);
-			g.fillRect(p.x * Window.SQUARE_SIZE + horizontal, p.y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE, Window.SQUARE_SIZE);
-		});
+		gc.game.getLevel().forEach(p -> g.fillRect(p.x * Window.SQUARE_SIZE + horizontal, p.y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE, Window.SQUARE_SIZE));
 		
 		g.setColor(Color.GREEN);
 		gc.game.updateSnake().forEach(p -> g.fillOval(p.x * Window.SQUARE_SIZE + horizontal, p.y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE- 1));

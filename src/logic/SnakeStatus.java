@@ -1,6 +1,7 @@
 package logic;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ public class SnakeStatus {
 	private static final int MAX_GROWTH = 16;
 	private final int HEIGHT, WIDTH;
 	
+	private ArrayList<LinkedList<Point>> levelList = new ArrayList<LinkedList<Point>>();
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	private boolean gameOver = false, canChangeDirection = true;
@@ -19,6 +21,7 @@ public class SnakeStatus {
 		
 		this.HEIGHT = height;
 		this.WIDTH = width;
+		this.getWalls();
 		generateTarget();
 		generateDirectionandHead();
 		
@@ -27,7 +30,7 @@ public class SnakeStatus {
 	private void generateTarget() {
 		do {
 			target = new Point(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT));
-		} while (Snake.contains(target));
+		} while (Snake.contains(target) || levelList.get(level).contains(target));
 	}
 	
 	private void generateDirectionandHead() {
@@ -46,7 +49,7 @@ public class SnakeStatus {
 	
 	public LinkedList<Point> updateSnake(){
 		
-		gameOver = Snake.contains(head);
+		gameOver = Snake.contains(head) || levelList.get(level).contains(head);
 		
 		LinkedList<Point> tempList = new LinkedList<Point>();
 		
@@ -63,12 +66,13 @@ public class SnakeStatus {
 			growCounter--;
 		}
 		else {
-			Snake.removeLast();
+			if (!gameOver)Snake.removeLast();
 			
 		}
-		
-		head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
-		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
+		if (!gameOver) {
+			head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
+			head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
+		}
 		
 		canChangeDirection = true;
 		return Snake;
@@ -93,15 +97,20 @@ public class SnakeStatus {
 	public void reset() {
 		generateTarget();
 		generateDirectionandHead();
+		gameOver = false;
 		Snake.clear();
 		score = 0;
 	}
 	
-	public LinkedList<Point> getWalls() {
+	public void getWalls() {
 		
 		LevelPainter walls = new LevelPainter();
-		return walls.getWalls(HEIGHT, WIDTH, level);
+		levelList = walls.getWalls(HEIGHT - 1, WIDTH - 1);
 		
+	}
+	
+	public LinkedList<Point> getLevel() {
+		return levelList.get(level);
 	}
 
 }
