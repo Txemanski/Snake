@@ -13,22 +13,18 @@ public class Menu implements GameState {
 	private final GameContext gc;
 	
 	private int optionSelected = 0;
-	private HashMap<Integer, String> listofOptions = new HashMap<Integer,String>();
-	private HashMap<String, GameState> mapofOptions;
-	private final Set<String> setofOptions;
+	private HashMap<Integer, String> listofOptions = new HashMap<Integer, String>();
+	private int optionNumber = 0;
 	
 	public Menu (GameContext c) {
 
 		gc = c;
-		mapofOptions = new MenuOptions(gc);
 		
-		setofOptions = mapofOptions.keySet();
-		
-		setofOptions.forEach(s -> {listofOptions.put(optionSelected, s);
-			optionSelected++;
+		Set<String> setofOptions = gc.BSTATES.getSetofOptions();
+		setofOptions.forEach(s -> {listofOptions.put(optionNumber, s);
+			optionNumber++;
 		});
-		
-		optionSelected = 0;		
+		optionNumber = 0;
 	}
 
 	@Override
@@ -58,7 +54,7 @@ public class Menu implements GameState {
 
 	@Override
 	public void spacePressed() {
-		gc.setState(mapofOptions.get(listofOptions.get(optionSelected)));
+		gc.setState(gc.BSTATES.getOption(listofOptions.get(optionSelected)));
 
 	}
 

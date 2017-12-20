@@ -14,7 +14,7 @@ public class SnakeStatus {
 	private ArrayList<LinkedList<Point>> levelList = new ArrayList<LinkedList<Point>>();
 	private LinkedList<Point> Snake = new LinkedList<Point>();
 	private Point target, direction, head;
-	private boolean gameOver = false, canChangeDirection = true;
+	private boolean gameOver = false, canChangeDirection = true, changeLevel = true;
 	private int score = 0, growCounter = 0, level = 1;
 	
 	public SnakeStatus(int height, int width) {
@@ -91,6 +91,7 @@ public class SnakeStatus {
 	}
 	
 	public boolean isGameOver() {return gameOver;}
+	public boolean isChangeLevel() {return changeLevel;}
 	
 	public String getScore() {return Integer.toString(score);	}
 	
