@@ -104,6 +104,9 @@ public class SnakeStatus {
 		gameOver = false;
 		snake.clear();
 		score = 0;
+		level = 0;
+		targetsEaten = 0;
+		growCounter = 0;
 	}
 	
 	public void getWalls() {
@@ -122,6 +125,7 @@ public class SnakeStatus {
 		snake.clear();
 		level++;
 		changeLevel = false;
+		growCounter = 0;
 	}
 
 }
