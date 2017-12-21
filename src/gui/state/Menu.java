@@ -20,7 +20,7 @@ public class Menu implements GameState {
 
 		gc = c;
 		
-		Set<String> setofOptions = gc.BSTATES.getSetofOptions();
+		Set<String> setofOptions = gc.MOPTIONS.keySet();
 		setofOptions.forEach(s -> {listofOptions.put(optionNumber, s);
 			optionNumber++;
 		});
@@ -54,7 +54,7 @@ public class Menu implements GameState {
 
 	@Override
 	public void spacePressed() {
-		gc.setState(gc.BSTATES.getOption(listofOptions.get(optionSelected)));
+		gc.setState(gc.MOPTIONS.get(listofOptions.get(optionSelected)));
 
 	}
 

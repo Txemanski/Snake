@@ -12,10 +12,10 @@ public class SnakeStatus {
 	private final int HEIGHT, WIDTH;
 	
 	private ArrayList<LinkedList<Point>> levelList = new ArrayList<LinkedList<Point>>();
-	private LinkedList<Point> Snake = new LinkedList<Point>();
+	private LinkedList<Point> snake = new LinkedList<Point>();
 	private Point target, direction, head;
-	private boolean gameOver = false, canChangeDirection = true, changeLevel = true;
-	private int score = 0, growCounter = 0, level = 1;
+	private boolean gameOver = false, canChangeDirection = true, changeLevel = false;
+	private int score = 0, growCounter = 0, level = 0, targetsEaten = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -30,7 +30,7 @@ public class SnakeStatus {
 	private void generateTarget() {
 		do {
 			target = new Point(new Random().nextInt(WIDTH), new Random().nextInt(HEIGHT));
-		} while (Snake.contains(target) || levelList.get(level).contains(target));
+		} while (snake.contains(target) || levelList.get(level).contains(target));
 	}
 	
 	private void generateDirectionandHead() {
@@ -49,24 +49,25 @@ public class SnakeStatus {
 	
 	public LinkedList<Point> updateSnake(){
 		
-		gameOver = Snake.contains(head) || levelList.get(level).contains(head);
+		gameOver = snake.contains(head) || levelList.get(level).contains(head);
 		
 		LinkedList<Point> tempList = new LinkedList<Point>();
 		
-		Snake.forEach(p -> tempList.add(p));
+		snake.forEach(p -> tempList.add(p));
 		
-		Snake.addFirst(new Point(head.x, head.y));
+		snake.addFirst(new Point(head.x, head.y));
 		
 		if (head.equals(target)) {
 			generateTarget();
-			growCounter = Math.min(Snake.size(), MAX_GROWTH);
+			growCounter = Math.min(snake.size(), MAX_GROWTH);
 			score+= growCounter;
+			targetsEaten++;
 		}
 		else if (growCounter > 1){
 			growCounter--;
 		}
 		else {
-			if (!gameOver)Snake.removeLast();
+			if (!gameOver)snake.removeLast();
 			
 		}
 		if (!gameOver) {
@@ -74,8 +75,10 @@ public class SnakeStatus {
 			head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
 		}
 		
+		changeLevel = targetsEaten > 9;
+		
 		canChangeDirection = true;
-		return Snake;
+		return snake;
 	}
 	
 	public Point getHead() {return head;}
@@ -99,7 +102,7 @@ public class SnakeStatus {
 		generateTarget();
 		generateDirectionandHead();
 		gameOver = false;
-		Snake.clear();
+		snake.clear();
 		score = 0;
 	}
 	
@@ -112,6 +115,13 @@ public class SnakeStatus {
 	
 	public LinkedList<Point> getLevel() {
 		return levelList.get(level);
+	}
+	
+	public void levelUp() {
+		targetsEaten = 0;
+		snake.clear();
+		level++;
+		changeLevel = false;
 	}
 
 }

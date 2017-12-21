@@ -8,7 +8,9 @@ import logic.SnakeStatus;
 public class GameContext {
 
 	protected final SnakeStatus game = new SnakeStatus(Window.BOARD_HEIGHT, Window.BOARD_WIDTH);
+	protected final MenuOptions MOPTIONS = new MenuOptions(this);
 	protected final BasicStates BSTATES = new BasicStates(this);
+	
 	
 	private GameState currentState;
 	
