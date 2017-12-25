@@ -32,4 +32,8 @@ public class GameContext {
 	public void spacePressed() { currentState.spacePressed(); }
 	
 	public void drawState (Graphics g, int horizontal, int vertical) { currentState.drawGraphics(g, horizontal, vertical); }
+	
+	public int getSpeed() {
+		return game.getSpeed();
+	}
 }
