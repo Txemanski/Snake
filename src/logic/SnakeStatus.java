@@ -15,7 +15,7 @@ public class SnakeStatus {
 	private LinkedList<Point> snake = new LinkedList<Point>();
 	private Point target, direction, head;
 	private boolean gameOver = false, canChangeDirection = true, changeLevel = false;
-	private int score = 0, growCounter = 0, level = 2, targetsEaten = 0, speed = 0;
+	private int score = 0, growCounter = 0, level = 0, targetsEaten = 0, speed = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -75,7 +75,7 @@ public class SnakeStatus {
 			head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
 		}
 		
-		changeLevel = targetsEaten > 2;
+		changeLevel = targetsEaten > 9;
 		
 		canChangeDirection = true;
 		return snake;
