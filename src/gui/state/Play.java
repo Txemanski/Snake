@@ -71,7 +71,8 @@ public class Play implements GameState {
 
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Comic Sans", Font.BOLD, Window.FONT_SIZE / 2));
-		g.drawString("Score: " + gc.game.getScore(), horizontal, vertical - Window.FONT_SIZE);
+		int correctedV = (vertical - Window.FONT_SIZE) < 15 ? 15 : (vertical - Window.FONT_SIZE);
+		g.drawString("Score: " + gc.game.getScore(), horizontal, correctedV);
 
 	}
 

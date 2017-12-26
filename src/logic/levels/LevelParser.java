@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 public class LevelParser {
 
-	private LinkedList<WallDefinition> walls = new LinkedList<WallDefinition>();
+	private LinkedList<WallDefinition> walls;
 	private WallDefinition tempWall;
 
 	public void parse(File filetoParse) throws ParserConfigurationException, SAXException, IOException, DOMException, ParseNumbersException {
@@ -96,6 +96,9 @@ public class LevelParser {
 	}
 
 	public LinkedList<WallDefinition> getWalls(int level) {
+		
+		walls = new LinkedList<WallDefinition>();
+		
 		try {
 			parse(new File("levels/level" + level + ".xml"));
 		} catch (DOMException e) {
