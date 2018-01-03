@@ -6,13 +6,12 @@ import java.awt.Graphics;
 
 import gui.Window;
 
-public class LevelUp implements GameState {
+public class LevelUp extends GameState {
 	
-	private final GameContext gc;
 	
-	public LevelUp(GameContext c) {
-		gc = c;
-		
+
+	public LevelUp(GameContext c, boolean mo) {
+		super(c, mo);
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class LevelUp implements GameState {
 	@Override
 	public void spacePressed() {
 		gc.game.levelUp();
-		gc.setState(gc.MOPTIONS.get("PLAY") );
+		gc.setState(gc.BSTATES.get("PLAY") );
 
 	}
 

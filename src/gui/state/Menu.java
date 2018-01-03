@@ -3,40 +3,28 @@ package gui.state;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.HashMap;
-import java.util.Set;
 
 import gui.Window;
 
-public class Menu implements GameState {
-	
-	private final GameContext gc;
+public class Menu extends GameState {
 	
 	private int optionSelected = 0;
-	private HashMap<Integer, String> listofOptions = new HashMap<Integer, String>();
-	private int optionNumber = 0;
 	
-	public Menu (GameContext c) {
-
-		gc = c;
+	public Menu(GameContext c, boolean mo) {
+		super(c, mo);
 		
-		Set<String> setofOptions = gc.MOPTIONS.keySet();
-		setofOptions.forEach(s -> {listofOptions.put(optionNumber, s);
-			optionNumber++;
-		});
-		optionNumber = 0;
 	}
 
 	@Override
 	public void upPressed() {
 
-		optionSelected = (optionSelected < 1) ? listofOptions.size() - 1: optionSelected - 1;
+		optionSelected = (optionSelected < 1) ? gc.BSTATES.getOptionSize() - 1: optionSelected - 1;
 
 	}
 
 	@Override
 	public void downPressed() {
-		optionSelected = ++optionSelected % listofOptions.size();
+		optionSelected = ++optionSelected % gc.BSTATES.getOptionSize();
 
 	}
 
@@ -54,7 +42,7 @@ public class Menu implements GameState {
 
 	@Override
 	public void spacePressed() {
-		gc.setState(gc.MOPTIONS.get(listofOptions.get(optionSelected)));
+		gc.setState(gc.BSTATES.get(gc.BSTATES.getOptionMap().get(optionSelected)));
 
 	}
 
@@ -63,11 +51,11 @@ public class Menu implements GameState {
 
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Comic Sans", Font.BOLD,  Window.FONT_SIZE));
-		Set <Integer> setofSelectedOptions = listofOptions.keySet();
-		setofSelectedOptions.forEach(i -> {
+		
+		gc.BSTATES.getOptionSet().forEach(i -> {
 			if (i == optionSelected) g.setColor(Color.YELLOW);
 			else g.setColor(Color.LIGHT_GRAY);
-			g.drawString(listofOptions.get(i), horizontal + Window.BOARD_WIDTH * Window.SQUARE_SIZE/ 2 - Window.FONT_SIZE * 5,
+			g.drawString(gc.BSTATES.getOptionMap().get(i), horizontal + Window.BOARD_WIDTH * Window.SQUARE_SIZE/ 2 - Window.FONT_SIZE * 5,
 					vertical + (i + 1) * Window.FONT_SIZE + Window.BOARD_HEIGHT * Window.SQUARE_SIZE / 2);
 			
 		});		

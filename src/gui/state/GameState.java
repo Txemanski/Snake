@@ -2,18 +2,29 @@ package gui.state;
 
 import java.awt.Graphics;
 
-interface GameState {
+abstract class GameState {
+	
+	protected final GameContext gc;
+	private final boolean menuOption;
+	
+	public GameState(GameContext c, boolean mo) {
+		gc = c;
+		menuOption = mo;
+		
+	}
+	
+	public boolean isMenuOption() {return menuOption;}
 
-	void upPressed();
+	abstract void upPressed();
 
-	void downPressed();
+	abstract void downPressed();
 
-	void leftPressed();
+	abstract void leftPressed();
 
-	void rightPressed();
+	abstract void rightPressed();
 
-	void spacePressed();
+	abstract void spacePressed();
 
-	void drawGraphics(Graphics g, int horizontal, int vertical);
+	abstract void drawGraphics(Graphics g, int horizontal, int vertical);
 
 }

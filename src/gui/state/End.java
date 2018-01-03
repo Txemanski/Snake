@@ -6,15 +6,13 @@ import java.awt.Graphics;
 
 import gui.Window;
 
-public class End implements GameState {
-	
-	private final GameContext gc;
+public class End extends GameState {
 
-	public End(GameContext c) {
-		
-		gc = c;
-		
+	public End(GameContext c, boolean mo) {
+		super(c, mo);
+
 	}
+
 	@Override
 	public void upPressed() {
 		// TODO Auto-generated method stub

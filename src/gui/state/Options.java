@@ -6,12 +6,11 @@ import java.awt.Graphics;
 
 import gui.Window;
 
-public class Options implements GameState {
+public class Options extends GameState {
 	
-	GameContext gc;
-	
-	public Options (GameContext c) {
-		gc = c;
+
+	public Options(GameContext c, boolean mo) {
+		super(c, mo);
 		
 	}
 

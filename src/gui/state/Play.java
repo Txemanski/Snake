@@ -7,13 +7,12 @@ import java.awt.Graphics;
 import gui.Window;
 import logic.SnakeStatus;
 
-public class Play implements GameState {
+public class Play extends GameState {
 
-	private final GameContext gc;
 
-	public Play(GameContext c) {
-		gc = c;
-
+	public Play(GameContext c, boolean mo) {
+		super(c, mo);
+		
 	}
 
 	@Override
