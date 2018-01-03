@@ -60,7 +60,7 @@ public class SnakeStatus {
 		if (head.equals(target)) {
 			generateTarget();
 			growCounter = Math.min(snake.size(), MAX_GROWTH);
-			score+= growCounter;
+			score+= growCounter * (speed + 1);
 			targetsEaten++;
 		}
 		else if (growCounter > 1){
@@ -127,6 +127,7 @@ public class SnakeStatus {
 		snake.clear();
 		changeLevel = false;
 		growCounter = 0;
+		generateTarget();
 	}
 	
 	private void recalculateLevel() {
