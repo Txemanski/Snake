@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import logic.levels.*;
 
-public class LevelPainter {
+class LevelPainter {
 	
 	private static final LevelFileCounter counter = new LevelFileCounter();
 	private static final int totalLevels = counter.getNumberofLevels(); 
