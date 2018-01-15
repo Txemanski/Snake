@@ -20,6 +20,7 @@ public final class BasicStates extends HashMap<String, GameState> {
 		this.put("LEVELUP", new LevelUp(g, notMenuOption));
 		this.put("OPTIONS", new Options(g, menuOption));
 		this.put("PLAY", new Play(g, menuOption));
+		this.put("EXIT", new Exit(g, menuOption));
 		
 		setOptions();
 					

@@ -40,7 +40,7 @@ public class Options extends GameState {
 
 	@Override
 	public void spacePressed() {
-		gc.setState(gc.BSTATES.get("MENU") );
+		gc.setState("MENU");
 
 	}
 

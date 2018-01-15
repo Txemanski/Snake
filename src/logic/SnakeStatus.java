@@ -14,8 +14,8 @@ public class SnakeStatus {
 	private ArrayList<LinkedList<Point>> levelList = new ArrayList<LinkedList<Point>>();
 	private LinkedList<Point> snake = new LinkedList<Point>();
 	private Point target, direction, head;
-	private boolean gameOver = false, canChangeDirection = true, changeLevel = false;
-	private int score = 0, growCounter = 0, level = 0, targetsEaten = 0, speed = 0;
+	private boolean canChangeDirection = true;
+	private int score = 0, speed = 0, growCounter = 0, level = 0, targetsEaten = 0;
 	
 	public SnakeStatus(int height, int width) {
 		
@@ -48,13 +48,7 @@ public class SnakeStatus {
 	public Point getTarget() {return target;}
 	
 	public LinkedList<Point> updateSnake(){
-		
-		gameOver = snake.contains(head) || levelList.get(level).contains(head);
-		
-		LinkedList<Point> tempList = new LinkedList<Point>();
-		
-		snake.forEach(p -> tempList.add(p));
-		
+
 		snake.addFirst(new Point(head.x, head.y));
 		
 		if (head.equals(target)) {
@@ -67,16 +61,13 @@ public class SnakeStatus {
 			growCounter--;
 		}
 		else {
-			if (!gameOver)snake.removeLast();
+			snake.removeLast();
 			
 		}
-		if (!gameOver) {
-			head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
-			head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
-		}
 		
-		changeLevel = targetsEaten > 9;
-		
+		head.x = (head.x + direction.x) % (WIDTH) > -1 ? (head.x + direction.x) % (WIDTH) : (WIDTH - 1);
+		head.y = (head.y + direction.y) % (HEIGHT - 1) > -1 ? (head.y + direction.y) % (HEIGHT) : (HEIGHT - 1);
+				
 		canChangeDirection = true;
 		return snake;
 	}
@@ -93,24 +84,39 @@ public class SnakeStatus {
 		}
 	}
 	
-	public boolean isGameOver() {return gameOver;}
-	public boolean isChangeLevel() {return changeLevel;}
+	public boolean isGameOver() {return snake.contains(head) || levelList.get(level).contains(head);}
+	public boolean isChangeLevel() {return targetsEaten > 9;}
 	
-	public String getScore() {return Integer.toString(score);	}
+	public int getScore() {return score;}
 	
 	public void reset() {
-		generateTarget();
-		generateDirectionandHead();
-		gameOver = false;
-		snake.clear();
+				
 		score = 0;
 		level = 0;
 		speed = 0;
-		targetsEaten = 0;
-		growCounter = 0;
+		resetSnake();
 	}
 	
-	public void getWalls() {
+	public void levelUp() {
+		
+		int maxLevel = levelList.size();
+		level++;
+		speed += level / maxLevel;
+		level = level % maxLevel;
+		
+		resetSnake();
+		generateTarget();
+	}
+	
+	private void resetSnake() {
+		growCounter = 0;
+		targetsEaten = 0;
+		snake.clear();
+		generateTarget();
+		generateDirectionandHead();
+	}
+	
+	private void getWalls() {
 		
 		LevelPainter walls = new LevelPainter();
 		levelList = walls.getWalls(HEIGHT - 1, WIDTH - 1);
@@ -119,24 +125,6 @@ public class SnakeStatus {
 	
 	public LinkedList<Point> getLevel() {
 		return levelList.get(level);
-	}
-	
-	public void levelUp() {
-		targetsEaten = 0;
-		recalculateLevel();
-		snake.clear();
-		changeLevel = false;
-		growCounter = 0;
-		generateTarget();
-	}
-	
-	private void recalculateLevel() {
-		
-		int maxLevel = levelList.size();
-		level = speed * maxLevel + level;
-		level++;
-		speed = level / maxLevel;
-		level = level % maxLevel;
 	}
 	
 	public int getSpeed() {

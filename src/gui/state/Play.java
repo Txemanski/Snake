@@ -48,9 +48,9 @@ public class Play extends GameState {
 	public void drawGraphics(Graphics g, int horizontal, int vertical) {
 
 		if (gc.game.isGameOver())
-			gc.setState(gc.BSTATES.get("END"));
+			gc.setState("END");
 		if (gc.game.isChangeLevel())
-			gc.setState(gc.BSTATES.get("LEVELUP"));
+			gc.setState("LEVELUP");
 
 		g.setColor(new Color(0xDA8A5F));
 		gc.game.getLevel().forEach(p -> g.fillRect(p.x * Window.SQUARE_SIZE + horizontal,

@@ -40,7 +40,7 @@ public class End extends GameState {
 	@Override
 	public void spacePressed() {
 		gc.game.reset();
-		gc.setState(gc.BSTATES.get("MENU") );
+		gc.setState("MENU");
 
 	}
 	@Override
@@ -50,7 +50,6 @@ public class End extends GameState {
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		g.setColor(Color.YELLOW);

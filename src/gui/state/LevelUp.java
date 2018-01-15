@@ -41,7 +41,7 @@ public class LevelUp extends GameState {
 	@Override
 	public void spacePressed() {
 		gc.game.levelUp();
-		gc.setState(gc.BSTATES.get("PLAY") );
+		gc.setState("PLAY");
 
 	}
 
