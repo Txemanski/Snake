@@ -123,8 +123,12 @@ public class SnakeStatus {
 		
 	}
 	
-	public LinkedList<Point> getLevel() {
+	public LinkedList<Point> getLevelOld() {
 		return levelList.get(level);
+	}
+	
+	protected int getLevel() {
+		return level;
 	}
 	
 	public int getSpeed() {

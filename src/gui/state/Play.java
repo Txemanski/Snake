@@ -53,7 +53,7 @@ public class Play extends GameState {
 			gc.setState("LEVELUP");
 
 		g.setColor(new Color(0xDA8A5F));
-		gc.game.getLevel().forEach(p -> g.fillRect(p.x * Window.SQUARE_SIZE + horizontal,
+		gc.game.getLevelOld().forEach(p -> g.fillRect(p.x * Window.SQUARE_SIZE + horizontal,
 				p.y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE, Window.SQUARE_SIZE));
 
 		g.setColor(Color.GREEN);
@@ -69,7 +69,7 @@ public class Play extends GameState {
 				gc.game.getHead().y * Window.SQUARE_SIZE + vertical, Window.SQUARE_SIZE - 1, Window.SQUARE_SIZE - 1);
 
 		g.setColor(Color.YELLOW);
-		g.setFont(new Font("Comic Sans", Font.BOLD, Window.FONT_SIZE / 2));
+		g.setFont(new Font("Serif", Font.BOLD, Window.FONT_SIZE / 2));
 		int correctedV = (vertical - Window.FONT_SIZE) < 15 ? 15 : (vertical - Window.FONT_SIZE);
 		g.drawString("Score: " + gc.game.getScore(), horizontal, correctedV);
 

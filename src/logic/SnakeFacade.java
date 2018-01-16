@@ -7,17 +7,19 @@ public class SnakeFacade {
 	
 	public static final Point UP = new Point(0,-1), DOWN = new Point(0, 1), RIGHT = new Point(1, 0), LEFT = new Point(-1, 0);
 	private final int HEIGHT, WIDTH;
+	private final LevelPainter levels;
 	
 	private SnakeStatus gameStatus;
-	private SnakeElements snakeBody;
+	private SnakePhysics physics;
 	private boolean canChangeDirection = true;
 	
 	public SnakeFacade(int height, int width) {
 		
 		this.HEIGHT = height;
 		this.WIDTH = width;
+		levels = new LevelPainter(HEIGHT, WIDTH);
 		gameStatus = new SnakeStatus(HEIGHT, WIDTH);
-		snakeBody = new SnakeElements(HEIGHT, WIDTH);
+		physics = new SnakePhysics(HEIGHT, WIDTH, levels.getWalls(gameStatus.getLevel()));
 		
 	}
 	
@@ -31,7 +33,7 @@ public class SnakeFacade {
 	public void changeDirection(Point p) {
 		
 		if (canChangeDirection) {
-			snakeBody.changeDirection(p);
+			physics.changeDirection(p);
 			canChangeDirection = false;
 		}
 		
@@ -40,26 +42,26 @@ public class SnakeFacade {
 	public void reset() {
 		
 		gameStatus = new SnakeStatus(HEIGHT, WIDTH);
-		snakeBody = new SnakeElements(HEIGHT, WIDTH);		
+		physics = new SnakePhysics(HEIGHT, WIDTH, levels.getWalls(gameStatus.getLevel()));		
 	}
 	
 	public void levelUp() {
 		
-		snakeBody = new SnakeElements(HEIGHT, WIDTH);
 		gameStatus.levelUp();
+		physics = new SnakePhysics(HEIGHT, WIDTH, levels.getWalls(gameStatus.getLevel()));
 	}
 	
-	public LinkedList<Point> getLevel() {return null;}
+	public LinkedList<Point> getLevel() {return levels.getWalls(gameStatus.getLevel());}
 	
-	public boolean isChangeLevel() {return false;}
+	public boolean isChangeLevel() {return gameStatus.isChangeLevel();}
 	
-	public boolean isGameOver() {return snakeBody.checkGameOver();}
+	public boolean isGameOver() {return physics.isCollision();}
 	
 	public int getSpeed() {return gameStatus.getSpeed();}
 
 	public int getScore() {return gameStatus.getScore();}
 
-	public Point getTarget() {return snakeBody.getTarget();}
+	public Point getTarget() {return physics.getTarget();}
 	
-	public Point getHead() {return snakeBody.getHead();}
+	public Point getHead() {return physics.getHead();}
 }

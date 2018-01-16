@@ -2,11 +2,11 @@ package logic;
 
 import java.awt.Point;
 
-class SnakeElements {
+class SnakeBody {
 
 	private final int HEIGHT, WIDTH;
 	
-	protected SnakeElements(int height, int width) {
+	protected SnakeBody(int height, int width) {
 		
 		this.HEIGHT = height;
 		this.WIDTH = width;
