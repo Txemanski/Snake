@@ -6,7 +6,8 @@ import java.util.LinkedList;
 class SnakePhysics {
 	
 	private final int HEIGHT, WIDTH;
-	private LinkedList<Point> levelWalls;
+	private LinkedList<Point> levelWalls, body = new LinkedList<Point>();
+	private Point target, direction, head;
 	
 	protected SnakePhysics(int height, int width, LinkedList<Point> levels) {
 		
@@ -19,14 +20,16 @@ class SnakePhysics {
 	
 	protected void changeDirection(Point p) {
 		
+		if (Math.abs(p.x + direction.x) == 1 || Math.abs(p.y + direction.y) == 1) {
+			direction = p;
+		}
+		
 	}
 	
-	protected Point getTarget() {return null;}
+	protected Point getTarget() {return target;}
 	
-	protected Point getHead() {return null;}
+	protected Point getHead() {return head;}
 	
-	protected boolean isCollision() {
-		return false;
-	}
+	protected boolean isCollision() {return body.contains(head) || levelWalls.contains(head);}
 
 }
